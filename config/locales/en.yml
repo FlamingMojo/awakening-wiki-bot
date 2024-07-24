@@ -1,0 +1,44 @@
+en:
+  discord_bot:
+    commands:
+      user:
+        tooltip:
+          wiki_user: "Sync %{SITE_NAME} accounts to discord"
+          claim: "Claim ownership of a Wiki account"
+          wiki_username: "Your Wiki username (Case sensitive + Must have an email)"
+          verify: "Enter verification code sent to verify ownership claim"
+          code: "The verification code you received"
+          lookup: "Look up Wiki accounts belong to a discord user (defaults to self)"
+          user: "The discord user to look up verified Wiki accounts"
+        claim:
+          already_claimed: "%{wiki_username} has already been verified as <@%{owner_id}>"
+          email:
+            subject: "[%{token}] is your %{SITE_NAME} discord verification token"
+            text: >
+              Hello,
+
+              A user on the %{SITE_NAME} Discord server is attempting to verify ownership of the wiki user %{wiki_username}.
+              The discord username is %{discord_username} and ID %{discord_id}. 
+              If this is you, please return to the %{SITE_NAME} Discord server and use the command '/wiki_user verify' with the below code:
+
+              %{token}
+
+              Thanks for contributing to the wiki!
+          success: >
+            Sent a verification code to the email address connected to %{wiki_username}.
+            Please enter this code into '/wiki_user verify' to complete verification.
+          failure: "Sorry, there was a problem - please check the username spelling and that you have a linked email address."
+          ongoing_claim: >
+            You are already in the process of claiming %{ongoing_claim_username}.
+            Use '/wiki_user cancel' to cancel verification.
+        lookup:
+          not_found: "Sorry, that user has not verified any wiki accounts."
+          found: "<@%{user_id}> Has verified ownership of the following wiki accounts:\n %{wiki_usernames}"
+        verify:
+          no_claim: >
+            You do not have an open verification for a wiki username.
+            Use '/wiki_user claim' to start verifying your ownership of a wiki user.
+            Please make sure you have an email associated to the account!
+          already_claimed: "%{wiki_username} has already been verified as <@%{discord_id}>"
+          incorrect_code: "Sorry, that code is not correct."
+          success: "Successfully verified ownership of %{wiki_username}."
