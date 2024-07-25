@@ -25,7 +25,7 @@ module DiscordBot::Commands::User
     end
 
     def secret
-      Base32.encode("#{user.id}-#{wiki_user}")
+      Base32.encode("#{user.id}-#{ENV['TOKEN_SALT']}-#{wiki_user}")
     end
   end
 end

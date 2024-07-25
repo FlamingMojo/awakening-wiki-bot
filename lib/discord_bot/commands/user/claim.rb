@@ -11,7 +11,7 @@ module DiscordBot::Commands::User
     def content
       return t('already_claimed', wiki_username: wiki_username, owner_id: existing_user_page.body) if already_claimed?
       return t('ongoing_claim', ongoing_claim_username: ongoing_claim_username) if ongoing_claim?
-      return failure_message unless send_email
+      return t('failure') unless send_email
 
       WikiClient.create_page("Discord_verification:#{user.id}-claim", wiki_username)
       WikiClient.protect_page("Discord_verification:#{user.id}-claim", "Discord Verification Bot File")
