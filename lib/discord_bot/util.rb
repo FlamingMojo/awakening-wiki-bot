@@ -54,6 +54,16 @@ module DiscordBot
 
     private
 
+    def modal_keys
+      %w[]
+    end
+
+    def modal_values
+      @modal_values ||= modal_keys.each_with_object({}) do |attribute, hash|
+        hash[attribute] = event.value(attribute)
+      end
+    end
+
     # Helper method to get (a) user on the server, defaulting to the user initiating the event
     def member(user_id = nil)
       return event.user.on(ENV['DISCORD_SERVER_ID']) unless user_id

@@ -9,9 +9,9 @@ module DiscordBot::Commands::User
     with_locale_context 'discord_bot.commands.user.claim'
 
     def content
-      return t('already_claimed', wiki_username: wiki_username, owner_id: existing_user_page.body) if already_claimed?
-      return t('ongoing_claim', ongoing_claim_username: ongoing_claim_username) if ongoing_claim?
-      return t('failure') unless send_email
+      return t('already_claimed', wiki_username: wiki_username, owner_id: existing_user_page.body) if already_claimed
+      return t('ongoing_claim', ongoing_claim_username: ongoing_claim_username) if ongoing_claim
+      t('failure') if send_email.nil?
 
       WikiClient.create_page("Discord_verification:#{user.id}-claim", wiki_username)
       WikiClient.protect_page("Discord_verification:#{user.id}-claim", "Discord Verification Bot File")
@@ -19,10 +19,24 @@ module DiscordBot::Commands::User
       t('success', wiki_username: wiki_username)
     end
 
+    def response_block
+      return super if error?
+
+      lambda do |_builder, view|
+        view.row do |row|
+          row.button(label: t('enter_code'), custom_id: 'claim:submit_token', style: :primary)
+        end
+      end
+    end
+
     private
 
+    def error?
+      already_claimed || ongoing_claim || send_email.nil?
+    end
+
     def send_email
-      WikiClient.email_user(
+      @send_email ||= WikiClient.email_user(
         username: wiki_username,
         subject: t('email.subject', token: token),
         text: t(
@@ -39,8 +53,8 @@ module DiscordBot::Commands::User
       @token ||= DiscordBot::Commands::User::Token.new(user: user, wiki_user: wiki_username).code
     end
 
-    def already_claimed?
-      existing_user_page.status == 200
+    def already_claimed
+      @already_claimed ||= existing_user_page.status == 200
     end
 
     def existing_user_page
@@ -51,8 +65,8 @@ module DiscordBot::Commands::User
       ongoing_claim_page.body
     end
 
-    def ongoing_claim?
-      ongoing_claim_page.status == 200 && ongoing_claim_username != wiki_username
+    def ongoing_claim
+      @ongoing_claim ||= ongoing_claim_page.status == 200 && ongoing_claim_username != wiki_username
     end
 
     def ongoing_claim_page
@@ -60,7 +74,11 @@ module DiscordBot::Commands::User
     end
 
     def wiki_username
-      event.options['wiki_username']
+      modal_values['wiki_username']
+    end
+
+    def modal_keys
+      %w[wiki_username]
     end
   end
 end

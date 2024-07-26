@@ -69,7 +69,11 @@ module DiscordBot::Commands::User
     end
 
     def code
-      event.options['code']
+      modal_values['code']
+    end
+
+    def modal_keys
+      %w[code]
     end
   end
 end
