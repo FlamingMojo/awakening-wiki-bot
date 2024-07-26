@@ -16,6 +16,43 @@ Dotenv.load
 I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
 I18n.default_locale = :en
 
+# Monkey patch this fix in as Discord changed their API without warning to no longer accept {} as a nil emoji as of
+# 05-01-2024. Discordrb version <= 3.5.0.
+class Discordrb::Webhooks::View
+  class RowBuilder
+    def button(style:, label: nil, emoji: nil, custom_id: nil, disabled: nil, url: nil)
+      style = BUTTON_STYLES[style] || style
+
+      emoji = case emoji
+              when Integer, String
+                emoji.to_i.positive? ? { id: emoji } : { name: emoji }
+              when nil
+                nil
+              else
+                emoji.to_h
+              end
+
+      @components << { type: COMPONENT_TYPES[:button], label: label, emoji: emoji, style: style, custom_id: custom_id, disabled: disabled, url: url }
+    end
+  end
+
+  class SelectMenuBuilder
+    def option(label:, value:, description: nil, emoji: nil, default: nil)
+      emoji = case emoji
+              when Integer, String
+                emoji.to_i.positive? ? { id: emoji } : { name: emoji }
+              when nil
+                nil
+              else
+                emoji.to_h
+              end
+
+      @options << { label: label, value: value, description: description, emoji: emoji, default: default }
+    end
+  end
+end
+
+
 module Translatable
   module DSL
     def with_locale_context(prefix)

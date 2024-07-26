@@ -10,31 +10,31 @@ module DiscordBot
 
     def handle_command(command, service)
       DiscordBot.bot.application_command(command) do |event|
-        EventHandler.new(event: event, service: service.constantize).respond
+        EventHandler.new(event: event, service: const_get(service)).respond
       end
     end
 
     def handle_button(custom_id, service)
       DiscordBot.bot.button(custom_id: custom_id) do |event|
-        EventHandler.new(event: event, service: service.constantize).respond
+        EventHandler.new(event: event, service: const_get(service)).respond
       end
     end
 
     def handle_select_menu(custom_id, service)
       DiscordBot.bot.select_menu(custom_id: custom_id) do |event|
-        EventHandler.new(event: event, service: service.constantize).respond
+        EventHandler.new(event: event, service: const_get(service)).respond
       end
     end
 
     def handle_role_select(custom_id, service)
       DiscordBot.bot.role_select(custom_id: custom_id) do |event|
-        DiscordBot::EventHandler.new(event: event, service: service.constantize).respond
+        DiscordBot::EventHandler.new(event: event, service: const_get(service)).respond
       end
     end
 
     def handle_modal(custom_id, service)
       DiscordBot.bot.modal_submit(custom_id: custom_id) do |event|
-        EventHandler.new(event: event, service: service.constantize).respond
+        EventHandler.new(event: event, service: const_get(service)).respond
       end
     end
 
@@ -43,7 +43,7 @@ module DiscordBot
       DiscordBot.bot.application_command(command).group(group_name) do |group|
         subcommands.each do |subcommand, service|
           group.subcommand(subcommand) do |event|
-            EventHandler.new(event: event, service: service.constantize).respond
+            EventHandler.new(event: event, service: const_get(service)).respond
           end
         end
       end
