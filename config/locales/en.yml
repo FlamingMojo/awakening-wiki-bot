@@ -2,6 +2,8 @@ en:
   discord_bot:
     commands:
       admin:
+        reaction_block:
+          reason: "Blocked by %{admin} via Discord for suspected spam/abuse."
         tooltip:
           wiki_admin: "Tools for Wiki Admins"
           verify_board: "Post the verify board with button"
