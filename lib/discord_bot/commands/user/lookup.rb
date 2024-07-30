@@ -14,6 +14,10 @@ module DiscordBot::Commands::User
       t('found', user_id: user_id, wiki_usernames: wiki_usernames_page.body)
     end
 
+    def response_method
+      :update_message
+    end
+
     private
 
     def wiki_usernames_page
@@ -21,7 +25,7 @@ module DiscordBot::Commands::User
     end
 
     def user_id
-      (event.options['user'] || user.id).to_s
+      event.values.first.id || user.id
     end
   end
 end

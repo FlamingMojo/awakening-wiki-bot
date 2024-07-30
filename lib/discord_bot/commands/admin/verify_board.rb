@@ -33,6 +33,7 @@ module DiscordBot::Commands::Admin
       ::Discordrb::Components::View.new do |builder|
         builder.row do |row|
           row.button(label: t('link'), custom_id: 'verify_board:link', style: :primary)
+          row.button(label: t('lookup'), custom_id: 'verify_board:search', style: :secondary)
         end
       end
     end
