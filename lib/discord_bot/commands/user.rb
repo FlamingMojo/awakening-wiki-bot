@@ -27,7 +27,8 @@ module DiscordBot::Commands
         handle_modal('verify_board:claim', 'DiscordBot::Commands::User::Claim')
         handle_button('claim:submit_token', 'DiscordBot::Commands::User::SubmitToken')
         handle_modal('claim:verify', 'DiscordBot::Commands::User::Verify')
-        handle(:wiki_user, :lookup, 'DiscordBot::Commands::User::Lookup')
+        handle_button('verify_board:search', 'DiscordBot::Commands::User::Search')
+        handle_user_select('search:lookup', 'DiscordBot::Commands::User::Lookup')
       end
     end
   end
