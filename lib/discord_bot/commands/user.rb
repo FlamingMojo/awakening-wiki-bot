@@ -15,11 +15,6 @@ module DiscordBot::Commands
       end
 
       def register_commands
-        DiscordBot.slash_command(:wiki_user, t('wiki_user')) do |cmd|
-          cmd.subcommand(:lookup, t('lookup')) do |sub|
-            sub.user('user', t('user'))
-          end
-        end
       end
 
       def register_handlers
@@ -27,7 +22,8 @@ module DiscordBot::Commands
         handle_modal('verify_board:claim', 'DiscordBot::Commands::User::Claim')
         handle_button('claim:submit_token', 'DiscordBot::Commands::User::SubmitToken')
         handle_modal('claim:verify', 'DiscordBot::Commands::User::Verify')
-        handle(:wiki_user, :lookup, 'DiscordBot::Commands::User::Lookup')
+        handle_button('editor_tools:discord_source', 'DiscordBot::Commands::User::AddDiscordSource')
+        handle_modal('discord_source:add', 'DiscordBot::Commands::User::CreateDiscordSource')
       end
     end
   end

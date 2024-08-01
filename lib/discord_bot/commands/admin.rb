@@ -17,11 +17,13 @@ module DiscordBot::Commands
       def register_commands
         DiscordBot.slash_command(:wiki_admin, t('wiki_admin')) do |cmd|
           cmd.subcommand(:verify_board, t('verify_board'))
+          cmd.subcommand(:editor_board, t('editor_board'))
         end
       end
 
       def register_handlers
         handle(:wiki_admin, :verify_board, 'DiscordBot::Commands::Admin::VerifyBoard')
+        handle(:wiki_admin, :editor_board, 'DiscordBot::Commands::Admin::EditorToolBoard')
         handle_reaction(
           'DiscordBot::Commands::Admin::ReactionBlock',
           emoji: "❌", from: ENV['DISCORD_ADMIN_ID'].to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,

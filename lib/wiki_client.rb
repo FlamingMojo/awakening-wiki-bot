@@ -51,6 +51,11 @@ class WikiClient
     handle_command(:raw_action, *args, **kwargs)
   end
 
+  def self.upload_image(*args, **kwargs)
+    # upload_image(filename, path, comment, ignorewarnings, text = nil)
+    handle_command(:upload_image, *args, **kwargs)
+  end
+
   def self.email_user(username:, subject:, text:)
     raw_action(:emailuser, target: username, subject: subject, text: text, skip_retry: true)
   end
