@@ -55,6 +55,12 @@ module DiscordBot
       end
     end
 
+    def handle_message(service)
+      DiscordBot.bot.message do |event|
+        const_get(service).new(event).handle
+      end
+    end
+
     class EventHandler
       extend Forwardable
       attr_reader :event, :service
