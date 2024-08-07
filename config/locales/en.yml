@@ -2,8 +2,12 @@ en:
   discord_bot:
     commands:
       admin:
+        auto_block:
+          reason: "Automatically blocked by System for suspected spam/abuse."
         reaction_block:
           reason: "Blocked by %{admin} via Discord for suspected spam/abuse."
+        reaction_unblock:
+          reason: "Unblocked by %{admin} via Discord."
         tooltip:
           wiki_admin: "Tools for Wiki Admins"
           verify_board: "Post the verify board with button"
