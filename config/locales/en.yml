@@ -14,10 +14,12 @@ en:
         verify_board:
           success: "Posted!"
           link: "Link Account"
+          lookup: "Lookup User"
           embed:
             title: "Link Your %{SITE_NAME} Account"
             description: > 
-              Use the button below to link your wiki account.
+              Use the buttons below to link your wiki accounts, 
+              or look up accounts belonging to another user.
               Please note that wiki usernames are case sensitive,
               you must have an email associated with your account, and
               your preferences must allow emails from other users
@@ -31,6 +33,9 @@ en:
           code: "The verification code you received"
           lookup: "Look up Wiki accounts belong to a discord user (defaults to self)"
           user: "The discord user to look up verified Wiki accounts"
+        search:
+          content: "Lookup verified wiki accounts"
+          placeholder: "Discord User"
         link_modal:
           title: "Link %{SITE_NAME} Account"
           wiki_username: "Wiki Username"

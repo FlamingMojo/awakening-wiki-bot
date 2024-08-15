@@ -26,6 +26,12 @@ module DiscordBot
       end
     end
 
+    def handle_user_select(custom_id, service)
+      DiscordBot.bot.user_select(custom_id: custom_id) do |event|
+        EventHandler.new(event: event, service: const_get(service)).respond
+      end
+    end
+
     def handle_role_select(custom_id, service)
       DiscordBot.bot.role_select(custom_id: custom_id) do |event|
         DiscordBot::EventHandler.new(event: event, service: const_get(service)).respond

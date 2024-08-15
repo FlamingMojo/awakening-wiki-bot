@@ -23,14 +23,16 @@ module DiscordBot::Commands
       def register_handlers
         handle_message('DiscordBot::Commands::Admin::AutoBlock')
         handle(:wiki_admin, :verify_board, 'DiscordBot::Commands::Admin::VerifyBoard')
-        handle_reaction(
-          'DiscordBot::Commands::Admin::ReactionBlock',
-          emoji: "❌", from: ENV['DISCORD_ADMIN_ID'].to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
-        )
-        handle_reaction(
-          'DiscordBot::Commands::Admin::ReactionUnblock',
-          emoji: '✅', from: ENV['DISCORD_ADMIN_ID'].to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
-        )
+        ENV.fetch('DISCORD_ADMIN_IDS', '').split(',').each do |id|
+          handle_reaction(
+            'DiscordBot::Commands::Admin::ReactionBlock',
+            emoji: "❌", from: id.to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
+          )
+          handle_reaction(
+            'DiscordBot::Commands::Admin::ReactionUnblock',
+            emoji: '✅', from: id.to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
+          )
+        end
       end
     end
   end
