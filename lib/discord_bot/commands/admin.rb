@@ -17,6 +17,7 @@ module DiscordBot::Commands
       def register_commands
         DiscordBot.slash_command(:wiki_admin, t('wiki_admin')) do |cmd|
           cmd.subcommand(:verify_board, t('verify_board'))
+          cmd.subcommand(:editor_board, t('editor_board'))
         end
       end
 
