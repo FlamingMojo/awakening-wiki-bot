@@ -33,6 +33,10 @@ module DiscordBot::Commands
             'DiscordBot::Commands::Admin::ReactionUnblock',
             emoji: '✅', from: id.to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
           )
+          handle_reaction(
+            'DiscordBot::Commands::Admin::AutoBlock::BlacklistName',
+            emoji: '⚠️', from: id.to_i, in: ENV['DISCORD_UPDATE_FEED_CHANNEL_ID'].to_i,
+          )
         end
       end
     end
