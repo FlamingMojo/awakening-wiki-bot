@@ -12,8 +12,16 @@ module DiscordBot::Commands::Admin
 
     def handle
       return unless author.id == ENV['DISCORD_UPDATE_FEED_USER_ID'].to_i
-      return unless content.end_with?('registered')
+      return unless registered_user? || created_page?
 
+      if registered_user?
+        block_user!
+      else
+        delete_page!
+      end
+    end
+
+    def block_user!
       WikiClient.raw_action(
         :block,
         user: target_username,
@@ -30,7 +38,24 @@ module DiscordBot::Commands::Admin
       # This regex just captures the username within the first []
       content.match(/\[([^\]]+)\]/).captures.first
     end
+
+    def delete_page!
+      WikiClient.delete_page(target_page, t('reason', admin: user.global_name))
+    end
+
+    def target_page
+      # Webhook created messages take the form of:
+      # [USERNAME](<User URL>) ([t](<User Talk Page>)|[c](User Contributions page)) created [Page Title](link) ...
+      # This regex just captures the page name within the first [] after 'created'
+      content.split('created').last.match(/\[([^\]]+)\]/).captures
+    end
+
+    def registered_user?
+      content.end_with?('registered')
+    end
+
+    def created_page?
+      content.include?(')) created [')
+    end
   end
 end
-
-
