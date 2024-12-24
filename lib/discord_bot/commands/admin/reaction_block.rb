@@ -47,7 +47,7 @@ module DiscordBot::Commands::Admin
       # Webhook created messages take the form of:
       # [USERNAME](<User URL>) ([t](<User Talk Page>)|[c](User Contributions page)) created [Page Title](link) ...
       # This regex just captures the page name within the first [] after 'created'
-      content.split('created').last.match(/\[([^\]]+)\]/).captures
+      content.split('created')[1].match(/\[([^\]]+)\]/).captures
     end
 
     def registered_user?
