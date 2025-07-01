@@ -9,6 +9,7 @@ require 'i18n'
 require 'json'
 require 'mediawiki_api'
 require 'rotp'
+require 'uri'
 require 'yaml'
 
 Dotenv.load

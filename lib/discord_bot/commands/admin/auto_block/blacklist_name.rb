@@ -41,7 +41,7 @@ module DiscordBot::Commands::Admin
 
       def username_parts
         @username_parts ||= username.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-          gsub(/([a-z\d])([A-Z])/,'\1_\2').gsub(/([0-9]+)/,'_\1').split('_')
+          gsub(/([a-z\d])([A-Z])/,'\1_\2').gsub(/([0-9]+)/,'_\1').gsub('-','_').split('_')
       end
 
       def blocked_names_page

@@ -11,7 +11,7 @@ module DiscordBot::Commands::Admin
     def_delegators :event, :user, :message
     def_delegators :message, :author, :content
 
-    MATCHERS = [EvenOdd, CommonName]
+    MATCHERS = [EvenOdd, CommonName, KebabName, ManualBlacklistedName]
 
     def handle
       return unless author.id == ENV['DISCORD_UPDATE_FEED_USER_ID'].to_i
