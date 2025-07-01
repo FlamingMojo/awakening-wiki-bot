@@ -36,7 +36,7 @@ module DiscordBot::Commands::Admin
       # Webhook registration messages take the form of:
       # [USERNAME](<User URL>) ([t](<User Talk Page>)|[c](User Contributions page)) registered
       # This regex just captures the username within the first []
-      @target_username ||= content.match(/\[([^\]]+)\]/).captures.first
+      @target_username ||= URI::Parser.new.unescape(content.match(/User_talk:([^\]]+)>/).captures.first)
     end
   end
 end
