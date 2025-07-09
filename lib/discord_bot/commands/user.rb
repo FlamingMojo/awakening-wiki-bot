@@ -26,6 +26,7 @@ module DiscordBot::Commands
         handle_user_select('search:lookup', 'DiscordBot::Commands::User::Lookup')
         handle_button('editor_tools:discord_source', 'DiscordBot::Commands::User::AddDiscordSource')
         handle_modal('discord_source:add', 'DiscordBot::Commands::User::CreateDiscordSource')
+        handle_mention('DiscordBot::Commands::User::UploadImage')
       end
     end
   end

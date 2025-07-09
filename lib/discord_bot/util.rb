@@ -39,7 +39,9 @@ module DiscordBot
     def components; end
     def embed; end
     def flags; end # flags should be an int, but as response_params is compacted it assumes the method default of 0
-    def tts; end
+    def tts
+      false
+    end
     def wait_for_response; end # If using an after_response, ensure that this is true
 
     def embeds
