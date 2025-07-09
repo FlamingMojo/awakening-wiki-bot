@@ -61,8 +61,14 @@ module DiscordBot
       end
     end
 
-    def handle_message(service)
-      DiscordBot.bot.message do |event|
+    def handle_message(service, **attributes)
+      DiscordBot.bot.message(attributes) do |event|
+        const_get(service).new(event).handle
+      end
+    end
+
+    def handle_mention(service, **attributes)
+      DiscordBot.bot.mention(attributes) do |event|
         const_get(service).new(event).handle
       end
     end
@@ -93,4 +99,3 @@ module DiscordBot
     end
   end
 end
-
