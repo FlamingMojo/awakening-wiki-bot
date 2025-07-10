@@ -13,7 +13,7 @@ module DiscordBot::Commands::User
       return t('ongoing_claim', ongoing_claim_username: ongoing_claim_username) if ongoing_claim
       t('failure') if send_email.nil?
 
-      WikiClient.create_page("Discord_verification:#{user.id}-claim", wiki_username)
+      WikiClient.create_page("Discord_verification:#{user.id}-claim", claim_text)
       WikiClient.protect_page("Discord_verification:#{user.id}-claim", "Discord Verification Bot File")
 
       t('success', wiki_username: wiki_username)
@@ -49,6 +49,10 @@ module DiscordBot::Commands::User
       )
     end
 
+    def claim_text
+      "#{wiki_username}\n[[Category:Discord Verifications]]"
+    end
+
     def token
       @token ||= DiscordBot::Commands::User::Token.new(user: user, wiki_user: wiki_username).code
     end
@@ -62,7 +66,7 @@ module DiscordBot::Commands::User
     end
 
     def ongoing_claim_username
-      ongoing_claim_page.body
+      ongoing_claim_page.body.split("\n").first
     end
 
     def ongoing_claim

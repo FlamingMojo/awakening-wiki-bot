@@ -11,7 +11,8 @@ module DiscordBot::Commands::User
     def content
       return t('not_found') if wiki_usernames_page.status == 404
 
-      t('found', user_id: user_id, wiki_usernames: wiki_usernames_page.body)
+      # The last line of the verification is the category, which we can ignore.
+      t('found', user_id: user_id, wiki_usernames: wiki_usernames_page.body.split("\n")[...-1].join(', '))
     end
 
     def response_method

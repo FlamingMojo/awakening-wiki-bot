@@ -11,7 +11,7 @@ module DiscordBot::Commands::Admin
 
       def handle
         return unless author.id == ENV['DISCORD_UPDATE_FEED_USER_ID'].to_i
-        return unless content.end_with?('registered')
+        return unless registered_user? || created_page?
 
         WikiClient.create_page('Wiki:BotNames.json', update_list.to_json)
       end
@@ -48,11 +48,19 @@ module DiscordBot::Commands::Admin
         WikiClient.get_page('Wiki:BotNames.json').body
       end
 
+      def registered_user?
+        content.end_with?('registered')
+      end
+
+      def created_page?
+        content.include?(')) created [')
+      end
+
       def username
         # Webhook registration messages take the form of:
         # [USERNAME](<User URL>) ([t](<User Talk Page>)|[c](User Contributions page)) registered
         # This regex just captures the username within the first []
-        content.match(/\[([^\]]+)\]/).captures.first
+        URI::Parser.new.unescape(content.match(/User_talk:([^\]]+)>/).captures.first)
       end
     end
   end

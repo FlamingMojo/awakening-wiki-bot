@@ -15,7 +15,7 @@ module DiscordBot::Commands::User
 
       delete_claim!
       WikiClient.create_page("Discord_verification:#{user.id}", current_verification)
-      WikiClient.create_page("Discord_verification:#{wiki_username}", user.id.to_s)
+      WikiClient.create_page("Discord_verification:#{wiki_username}", "#{user.id}\n[[Category:Discord Verifications]]")
       WikiClient.protect_page("Discord_verification:#{user.id}", "Discord Verification Bot File")
       WikiClient.protect_page("Discord_verification:#{wiki_username}", "Discord Verification Bot File")
 
@@ -25,9 +25,9 @@ module DiscordBot::Commands::User
     private
 
     def current_verification
-      return wiki_username if current_verification_page.status == 404
+      return "#{wiki_username}\n[[Category:Discord Verifications]]" if current_verification_page.status == 404
 
-      [current_verification_page.body, wiki_username].join("\n")
+      [wiki_username, current_verification_page.body].join("\n")
     end
 
     def current_verification_page
@@ -45,7 +45,7 @@ module DiscordBot::Commands::User
     def already_claimed_message
       delete_claim!
 
-      t('already_claimed', wiki_username: wiki_username, discord_id: existing_user_page.body)
+      t('already_claimed', wiki_username: wiki_username, discord_id: existing_user_page.body.split("\n").first)
     end
 
     def already_claimed?
@@ -61,7 +61,7 @@ module DiscordBot::Commands::User
     end
 
     def wiki_username
-      ongoing_claim_page.body
+      ongoing_claim_page.body.split("\n").first
     end
 
     def ongoing_claim_page
