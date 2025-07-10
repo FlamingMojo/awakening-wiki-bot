@@ -18,6 +18,7 @@ module DiscordBot::Commands::Admin
         block_user!
       else
         delete_page!
+        block_user!
       end
     end
 
