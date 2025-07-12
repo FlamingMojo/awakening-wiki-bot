@@ -56,6 +56,10 @@ module DiscordBot
 
     private
 
+    def custom_id
+      event.interaction.data['custom_id']
+    end
+
     def modal_keys
       %w[]
     end

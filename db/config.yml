@@ -1,0 +1,9 @@
+default_env: &default
+  adapter: postgresql
+  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('DB_PORT', '5432').to_i %>
+  username: <%= ENV.fetch('DB_USER', 'postgres') %>
+  password: <%= ENV.fetch('DB_PASSWORD', 'postgres') %>
+  database: <%= ENV.fetch('DB_DATABASE', 'awakening_wiki_bot') %>
+development:
+  <<: *default

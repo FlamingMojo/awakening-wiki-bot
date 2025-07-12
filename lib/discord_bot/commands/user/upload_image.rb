@@ -19,13 +19,15 @@ module DiscordBot::Commands::User
       return "<@#{user.id}> You haven't attached any images!" unless attachments.any?
       return "<@#{user.id}> You need to tell me a title for these images!" unless title_base.length
 
+      handle_mission if discord_user.current_mission&.image_upload?
+
       "<@#{user.id}> Uploaded: #{uploaded_files.join(', ')} for you!"
-    rescue
-      "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help!"
+    # rescue
+    #   "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help!"
     end
 
     def uploaded_files
-      attachments.each_with_index.map do |attachment, index|
+      @uploaded_files ||= attachments.each_with_index.map do |attachment, index|
         filename_base = index.zero? ? title_base : "#{title_base} #{index}"
         discord_image = DiscordImage.new(attachment.url, filename_base)
         discord_image.generate_image_file!
@@ -46,6 +48,16 @@ module DiscordBot::Commands::User
 
     def message_text
       text.gsub("<@#{DiscordBot.bot.instance_variable_get('@client_id')}>", '').strip
+    end
+
+    def discord_user
+      @discord_user ||= DiscordUser.from_discord(user)
+    end
+
+    def handle_mission
+      ::DiscordBot::Commands::Missions::Submit::UploadImage.new(
+        discord_user: discord_user, uploaded_files: uploaded_files, channel: event.channel
+      ).handle
     end
 
     class DiscordImage

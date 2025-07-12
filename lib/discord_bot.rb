@@ -25,7 +25,7 @@ module DiscordBot
     @server ||= DiscordBot.bot.server(ENV['DISCORD_SERVER_ID'])
   end
 
-  def send_message(*args, **kwargs)
+  def self.send_message(*args, **kwargs)
     bot.send_message(*args, **kwargs)
   end
 
