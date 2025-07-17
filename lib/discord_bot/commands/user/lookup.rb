@@ -9,10 +9,9 @@ module DiscordBot::Commands::User
     with_locale_context 'discord_bot.commands.user.lookup'
 
     def content
-      return t('not_found') if wiki_usernames_page.status == 404
+      return t('not_found') unless wiki_users.any?
 
-      # The last line of the verification is the category, which we can ignore.
-      t('found', user_id: user_id, wiki_usernames: wiki_usernames_page.body.split("\n")[...-1].join(', '))
+      t('found', user_id: user_id, wiki_usernames: wiki_users.map(&:username).join(', '))
     end
 
     def response_method
@@ -21,8 +20,8 @@ module DiscordBot::Commands::User
 
     private
 
-    def wiki_usernames_page
-      WikiClient.get_page("Discord_verification:#{user_id}")
+    def wiki_users
+      @wiki_users ||= WikiUser.lookup(user_id)
     end
 
     def user_id

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_record'
 require 'base32'
 require 'digest'
 require 'discordrb'
@@ -16,6 +17,10 @@ Dotenv.load
 
 I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
 I18n.default_locale = :en
+
+ActiveRecord::Base.establish_connection(
+  YAML.load(ERB.new(IO.read('./db/config.yml')).result, aliases: true)['default_env']
+)
 
 # Monkey patch this fix in as Discord changed their API without warning to no longer accept {} as a nil emoji as of
 # 05-01-2024. Discordrb version <= 3.5.0.

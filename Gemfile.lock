@@ -1,8 +1,50 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actionpack (7.2.2.1)
+      actionview (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
+      nokogiri (>= 1.8.5)
+      racc
+      rack (>= 2.2.4, < 3.2)
+      rack-session (>= 1.0.1)
+      rack-test (>= 0.6.3)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+      useragent (~> 0.16)
+    actionview (7.2.2.1)
+      activesupport (= 7.2.2.1)
+      builder (~> 3.1)
+      erubi (~> 1.11)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    activemodel (7.2.2.1)
+      activesupport (= 7.2.2.1)
+    activerecord (7.2.2.1)
+      activemodel (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
+      timeout (>= 0.4.0)
+    activesupport (7.2.2.1)
+      base64
+      benchmark (>= 0.3)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.3.1)
+      connection_pool (>= 2.2.5)
+      drb
+      i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
+      minitest (>= 5.1)
+      securerandom (>= 0.3)
+      tzinfo (~> 2.0, >= 2.0.5)
     base32 (0.3.4)
+    base64 (0.3.0)
+    benchmark (0.4.1)
+    bigdecimal (3.2.2)
+    builder (3.3.0)
     concurrent-ruby (1.3.3)
+    connection_pool (2.5.3)
+    crass (1.0.6)
+    date (3.4.1)
     discordrb (3.5.0)
       discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
@@ -13,6 +55,9 @@ GEM
       rest-client (>= 2.0.0)
     domain_name (0.6.20240107)
     dotenv (3.1.2)
+    drb (2.2.3)
+    erb (5.0.1)
+    erubi (1.13.1)
     event_emitter (0.2.6)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
@@ -33,6 +78,15 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    io-console (0.8.0)
+    irb (1.15.2)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    logger (1.7.0)
+    loofah (2.24.1)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.12.0)
     mediawiki_api (0.9.0)
       faraday (>= 2.7.0)
       faraday-cookie_jar
@@ -42,34 +96,90 @@ GEM
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0702)
+    minitest (5.25.5)
     multipart-post (2.4.0)
     net-http (0.4.1)
       uri
     netrc (0.11.0)
+    nokogiri (1.18.8-x86_64-linux-gnu)
+      racc (~> 1.4)
     opus-ruby (1.0.1)
       ffi
+    pg (1.5.9)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
+    psych (5.2.6)
+      date
+      stringio
+    racc (1.8.1)
+    rack (3.1.16)
+    rack-session (2.1.1)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0)
+    rack-test (2.2.0)
+      rack (>= 1.3)
+    rackup (2.2.1)
+      rack (>= 3)
+    rails-dom-testing (2.3.0)
+      activesupport (>= 5.0.0)
+      minitest
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.6.2)
+      loofah (~> 2.21)
+      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+    railties (7.2.2.1)
+      actionpack (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
+      irb (~> 1.13)
+      rackup (>= 1.0.0)
+      rake (>= 12.2)
+      thor (~> 1.0, >= 1.2.2)
+      zeitwerk (~> 2.6)
+    rake (13.3.0)
+    rdoc (6.14.2)
+      erb
+      psych (>= 4.0.0)
+    reline (0.6.1)
+      io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rotp (6.3.0)
+    securerandom (0.4.1)
+    standalone_migrations (8.0.0)
+      activerecord (>= 6.0.0, < 8.1)
+      nokogiri (~> 1.14)
+      railties (>= 6.0.0, < 8.1)
+      rake (>= 10.0)
+    stringio (3.1.7)
+    thor (1.3.2)
+    timeout (0.4.3)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
     uri (0.13.0)
+    useragent (0.16.11)
     websocket (1.2.11)
     websocket-client-simple (0.8.0)
       event_emitter
       websocket
+    zeitwerk (2.7.3)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord
   base32
   discordrb
   dotenv
   i18n
   mediawiki_api
+  pg
   rotp
+  standalone_migrations
 
 RUBY VERSION
    ruby 3.2.2p53
