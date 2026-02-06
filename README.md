@@ -7,14 +7,13 @@ A simple Discord Bot for linking user's MediaWiki and Discord accounts for the [
 While this bot is made for the Awakening wiki primarily, it could be used on other discord servers to link any MediaWiki accounts.
 This does not provide user sign in (OAuth) but from the Discord, nor has any persistent storage itself, instead using hidden wiki pages.
  
- * A [MediaWiki](https://www.mediawiki.org) Server with emailing enabled
+ * A [MediaWiki](https://www.mediawiki.org) Server with the [Discord Extension](https://www.mediawiki.org/wiki/Extension:Discord)
  * A Wiki bot user. See [The Docs](https://www.mediawiki.org/wiki/Manual:Bots) with the following permissions:
    * Edit existing pages
    * Edit protected pages
    * Create, edit, and move pages
    * Delete pages, revisions, and log entries
    * Protect and unprotect pages
-   * Send email to other users
  * A Discord Bot - See [The Discord Developer Portal](https://discord.com/developers) with the following grants:
    * Use Slash Commands
 

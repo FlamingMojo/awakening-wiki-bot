@@ -11,10 +11,10 @@ class WikiUser
 
     def lookup
       return existing_users if existing_users.any?
-      return [] if wiki_usernames_page.status == 404
+      return [] unless wiki_usernames
 
       wiki_usernames.map do |username|
-        WikiUser.create(username: username, discord_user: discord_user)
+        discord_user.wiki_users.find_or_create_by(username: username)
       end
     end
 
@@ -27,12 +27,11 @@ class WikiUser
     end
 
     def wiki_usernames
-      # The last line of the verification is the category, which we can ignore.
-      wiki_usernames_page.body.split("\n")[...-1]
+      verifications['verified']['discord'][discord_uid]
     end
 
-    def wiki_usernames_page
-      WikiClient.get_page("Discord_verification:#{discord_uid}")
+    def verifications
+      @verifications ||= JSON.parse(WikiClient.get_page('Discord_verification:all.json').body)
     end
   end
 end
