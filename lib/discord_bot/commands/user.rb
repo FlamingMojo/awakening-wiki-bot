@@ -20,8 +20,7 @@ module DiscordBot::Commands
       def register_handlers
         handle_button('verify_board:link', 'DiscordBot::Commands::User::Link')
         handle_modal('verify_board:claim', 'DiscordBot::Commands::User::Claim')
-        handle_button('claim:submit_token', 'DiscordBot::Commands::User::SubmitToken')
-        handle_modal('claim:verify', 'DiscordBot::Commands::User::Verify')
+        handle_message('DiscordBot::Commands::User::Verify')
         handle_button('verify_board:search', 'DiscordBot::Commands::User::Search')
         handle_user_select('search:lookup', 'DiscordBot::Commands::User::Lookup')
         handle_button('editor_tools:discord_source', 'DiscordBot::Commands::User::AddDiscordSource')

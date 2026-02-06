@@ -48,19 +48,9 @@ en:
             description: > 
               Use the buttons below to link your wiki accounts, 
               or look up accounts belonging to another user.
-              Please note that wiki usernames are case sensitive,
-              you must have an email associated with your account, and
-              your preferences must allow emails from other users
-              (just for verification - you can turn it off afterwards)
+              Please note that wiki usernames are case sensitive.
       user:
         tooltip:
-          wiki_user: "Sync %{SITE_NAME} accounts to discord"
-          claim: "Claim ownership of a Wiki account"
-          wiki_username: "Your Wiki username (Case sensitive + Must have an email)"
-          verify: "Enter verification code sent to verify ownership claim"
-          code: "The verification code you received"
-          lookup: "Look up Wiki accounts belong to a discord user (defaults to self)"
-          user: "The discord user to look up verified Wiki accounts"
         search:
           content: "Lookup verified wiki accounts"
           placeholder: "Discord User"
@@ -76,39 +66,20 @@ en:
           text: "Message Text"
         claim:
           already_claimed: "%{wiki_username} has already been verified as <@%{owner_id}>"
-          email:
-            subject: "[%{token}] is your %{SITE_NAME} discord verification token"
-            text: >
-              Hello,
-
-              A user on the %{SITE_NAME} Discord server is attempting to verify ownership of the wiki user %{wiki_username}.
-              The discord username is %{discord_username} and ID %{discord_id}. 
-              If this is you, please return to the %{SITE_NAME} Discord server and enter the below code into the verification prompt:
-
-              %{token}
-
-              Thanks for contributing to the wiki!
-          success: >
-            Sent a verification code to the email address connected to %{wiki_username}
-            Please press the button below and enter the code to complete verification
-          failure: "Sorry, there was a problem - please check the username spelling and that you have a linked email address"
+          instructions: >
+            Please log into the wiki as %{wiki_username} and make an edit to any page.
+            In the Summary of your changes, add the following verification code.
+            ```WM_%{token}_UV```
+            You can edit any page with any content for this to be detected.
+            For example you can create or edit -
+            %{WEBSITE_URL}/User:%{wiki_username}/User_Claim
           ongoing_claim: >
             You are already in the process of claiming %{ongoing_claim_username}
-          enter_code: "Enter Code"
-        submit_token:
-          title: "Verification"
-          prompt: "Verification code from email"
         verify:
-          no_claim: >
-            You do not have an open verification for a wiki username.
-            See <#%{DISCORD_VERIFY_CHANNEL_ID}> to start verifying your ownership of a wiki user.
-            Please make sure you have an email associated to the account!
-          already_claimed: "%{wiki_username} has already been verified as <@%{discord_id}>"
-          incorrect_code: "Sorry, that code is not correct"
-          success: "Successfully verified ownership of %{wiki_username}"
+          success: "<@%{user_id}> has successfully verified ownership of %{wiki_username}"
         lookup:
           not_found: "Sorry, that user has not verified any wiki accounts"
-          found: "<@%{user_id}> Has verified ownership of the following wiki accounts:\n %{wiki_usernames}"
+          found: "<@%{user_id}> has verified ownership of the following wiki accounts:\n %{wiki_usernames}"
       missions:
         tooltip:
           post: 'Post a new mission for the community'
