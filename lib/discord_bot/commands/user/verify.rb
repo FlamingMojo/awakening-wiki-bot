@@ -22,25 +22,10 @@ module DiscordBot::Commands::User
       return if already_claimed?
       return unless tokens.values.any?
 
-      complete_verification!
-      discord_user.wiki_users.find_or_create_by(username: wiki_username)
-
-      DiscordBot.bot.send_message(ENV.fetch('DISCORD_UPDATE_FEED_CHANNEL_ID', ''), broadcast_message)
+      discord_user.verify!(wiki_username)
     end
 
     private
-
-    def complete_verification!
-      currently_claiming.each { |k| verifications['ongoing']['discord'].delete(k) }
-      verifications['verified']['wiki'][wiki_username] = successful_user
-      verifications['verified']['discord'][successful_user] ||= []
-      verifications['verified']['discord'][successful_user] << wiki_username
-      WikiClient.create_page('Discord_verification:all.json', verifications.to_json)
-    end
-
-    def broadcast_message
-      t('success', wiki_username: wiki_username, user_id: successful_user)
-    end
 
     def successful_user
       tokens.select { |_k,v| v }.keys.first
