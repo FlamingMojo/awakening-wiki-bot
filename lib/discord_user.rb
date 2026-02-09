@@ -14,4 +14,8 @@ class DiscordUser < ActiveRecord::Base
   def verify(wiki_username)
     ::DiscordUser::Verify.new(discord_user: self, wiki_username:).verify!
   end
+
+  def verified?(wiki_username)
+    wiki_users.pluck(:username).include?(wiki_username)
+  end
 end

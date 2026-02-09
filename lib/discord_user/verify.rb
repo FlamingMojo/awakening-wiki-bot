@@ -1,5 +1,9 @@
 class DiscordUser
   class Verify
+    include Translatable
+
+    with_locale_context 'discord_bot.commands.user.verify'
+
     attr_reader :discord_user, :wiki_username
     private :discord_user, :wiki_username
 
@@ -18,7 +22,7 @@ class DiscordUser
     private
 
     def broadcast_message
-      t('discord_bot.commands.user.verify.success', wiki_username: wiki_username, user_id: discord_uid)
+      t('success', wiki_username: wiki_username, user_id: discord_uid)
     end
 
     def complete_verification!
