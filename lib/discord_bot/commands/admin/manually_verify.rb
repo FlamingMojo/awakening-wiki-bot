@@ -11,7 +11,7 @@ module DiscordBot::Commands::Admin
       return t('not_found') unless target_user && wiki_username
       return t('already_verified', user_id:, wiki_username:) if target_user.verified?(wiki_username)
 
-      target_user.verify(wiki_username)
+      target_user.verify!(wiki_username)
       t('success', user_id:, wiki_username:)
     rescue StandardError => e
       "Something went wrong! Ask Mojo! Error: ```#{e.message}```"
