@@ -53,6 +53,15 @@ en:
           not_found: 'User not found'
           already_verified: "<@%{user_id}> is already verified as %{wiki_username}!"
           success: 'Successfully verified <@%{user_id}> as the owner of %{wiki_username}!'
+        manually_submit_mission:
+          not_found: 'Mission not found!'
+          not_accepted: "That mission is not in progress!"
+          success: 'Successfully submitted Mission [%{mission_id}]!'
+          notify: >
+            <@%{user}> Thank you for your submission for mission %{summary}! 
+            It will be reviewed by an Editor.
+            You can continue updating the wiki page if you need in the meantime.
+            Thanks so much for your contribution! 🏅
       user:
         tooltip:
         search:
