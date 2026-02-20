@@ -11,7 +11,7 @@ class DiscordUser < ActiveRecord::Base
     find_or_create_by(discord_uid: user.id.to_s).tap { |u| u.update(username: user.username) }
   end
 
-  def verify(wiki_username)
+  def verify!(wiki_username)
     ::DiscordUser::Verify.new(discord_user: self, wiki_username:).verify!
   end
 
