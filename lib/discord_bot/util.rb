@@ -7,6 +7,7 @@ module DiscordBot
     # While this defines #initialize, it is still a module and cannot be instantiated.
     def initialize(event)
       @event = event
+      DiscordUser.from_discord(user) if user
     end
 
     def response_block

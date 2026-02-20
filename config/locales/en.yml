@@ -49,6 +49,10 @@ en:
               Use the buttons below to link your wiki accounts, 
               or look up accounts belonging to another user.
               Please note that wiki usernames are case sensitive.
+        manually_verify:
+          not_found: 'User not found'
+          already_verified: "<@%{user_id}> is already verified as %{wiki_username}!"
+          success: 'Successfully verified <@%{user_id}> as the owner of %{wiki_username}!'
       user:
         tooltip:
         search:
