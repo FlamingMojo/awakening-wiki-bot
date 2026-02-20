@@ -103,4 +103,8 @@ class Mission < ActiveRecord::Base
   def summary
     "[#{id}] #{title}"
   end
+
+  def channel_uid
+    discord_post_link.gsub('https://discord.com/channels/','').split('/')[1]
+  end
 end

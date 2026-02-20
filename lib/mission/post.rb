@@ -41,7 +41,7 @@ class Mission
     def update_params
       [
         DiscordBot.bot.token,
-        channel, # Channel ID
+        mission.channel_uid, # Channel ID
         mission.discord_post_uid, # Message ID
         content, # New Message Content
         [], # Mentions
@@ -51,13 +51,16 @@ class Mission
     end
 
     def delete_params
-      [DiscordBot.bot.token, channel, mission.discord_post_uid]
+      [DiscordBot.bot.token, mission.channel_uid, mission.discord_post_uid]
     end
 
     def channel
-      return ENV.fetch('DISCORD_MISSION_CHANNEL_ID', '') if context == :live
+      return ENV.fetch('DISCORD_MISSIONS_BOARD_CHANNEL_ID', '') if mission.active?
+      return ENV.fetch('DISCORD_MISSIONS_IN_PROGRESS_CHANNEL_ID', '') if mission.accepted?
+      return ENV.fetch('DISCORD_MISSIONS_SUBMISSIONS_CHANNEL_ID', '') if mission.submitted?
+      return ENV.fetch('DISCORD_MISSIONS_COMPLETED_CHANNEL_ID', '') if mission.completed?
 
-      ENV.fetch('DISCORD_SUBMISSIONS_CHANNEL_ID', '')
+      ENV.fetch('DISCORD_MISSIONS_BOARD_CHANNEL_ID', '')
     end
 
     def content
