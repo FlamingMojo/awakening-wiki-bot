@@ -98,6 +98,7 @@ en:
           post: 'Post a new mission for the community'
           abandon: 'Abandon your current mission'
           cancel: 'Cancel a mission'
+          count: 'Show how many missions someone has completed (defaults to your own mission count)'
           fields:
             id: 'ID of the mission to cancel'
         init:
@@ -150,7 +151,8 @@ en:
             To abandon this mission, simply `/abandon_mission`
         approve:
           approved_mission: "Completed mission %{summary}!"
-          celebration: "🎉<@%{user}> Has completed a mission - %{summary}!🎉"
+          celebration: "🎉<@%{user}> Has completed a mission - %{summary}! They have now completed **%{count}** missions! 🎉"
+          reward: "🎖 <@&1473396748478054420>! <@%{user}> HAS EARNED A REWARD FOR COMPLETING %{count} MISSIONS! 🎖️"
           not_found: "Sorry, something went wrong, can't find that mission"
           not_submitted: "Sorry, that mission has not had a submission yet"
           not_assigned: "Sorry, nobody is on that mission"
@@ -170,6 +172,10 @@ en:
         cancel:
           not_found: "You are not currently on a mission"
           cancelled_mission: "You have cancelled the mission %{summary}"
+        count:
+          not_found: 'Sorry, cannot find that user!'
+          found_self: "You have completed %{count} missions."
+          found: "<@%{user_id}> has completed %{count} missions."
         submit:
           create_page:
             notify: >

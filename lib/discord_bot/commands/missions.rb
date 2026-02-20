@@ -20,6 +20,9 @@ module DiscordBot::Commands
         DiscordBot.slash_command(:cancel_mission, t('cancel')) do |cmd|
           cmd.string('id', t('fields.id'), required: true)
         end
+        DiscordBot.slash_command(:missions, t('count')) do |cmd|
+          cmd.user('target_user', 'Other discord user', required: false)
+        end
       end
 
       def register_handlers
@@ -36,6 +39,7 @@ module DiscordBot::Commands
 
         handle_command(:abandon_mission, 'DiscordBot::Commands::Missions::Abandon')
         handle_command(:cancel_mission, 'DiscordBot::Commands::Missions::Cancel')
+        handle_command(:missions, 'DiscordBot::Commands::Missions::Count')
       end
     end
   end

@@ -20,7 +20,7 @@ module DiscordBot::Commands::Admin
     private
 
     def target_user
-      DiscordUser.find_or_create_by(discord_id: user_id)
+      DiscordUser.find_or_create_by(discord_uid: user_id)
     end
 
     def user_id
