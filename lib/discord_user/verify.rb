@@ -22,7 +22,7 @@ class DiscordUser
     private
 
     def broadcast_message
-      t('success', wiki_username: wiki_username, user_id: discord_uid)
+      t('success', wiki_username:, user_id: discord_uid)
     end
 
     def complete_verification!

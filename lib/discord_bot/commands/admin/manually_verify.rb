@@ -2,7 +2,6 @@
 
 module DiscordBot::Commands::Admin
   class ManuallyVerify
-    EventUser = Struct.new(:id)
     include Translatable
     include ::DiscordBot::Util
 
@@ -14,18 +13,18 @@ module DiscordBot::Commands::Admin
 
       target_user.verify(wiki_username)
       t('success', user_id:, wiki_username:)
-    rescue StandardError
-      'Something went wrong! Ask Mojo'
+    rescue StandardError => e
+      "Something went wrong! Ask Mojo! Error: ```#{e.message}```"
     end
 
     private
 
     def target_user
-      DiscordUser.from_discord(EventUser.new(user_id))
+      DiscordUser.find_or_create_by(discord_id: user_id)
     end
 
     def user_id
-      event.options['target_user']
+      event.options['target_user'].to_s
     end
 
     def wiki_username
