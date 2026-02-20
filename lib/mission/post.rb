@@ -18,7 +18,18 @@ class Mission
     end
 
     def update
+      return move if mission.channel_uid != channel
+
       ::Discordrb::API::Channel.edit_message(*update_params)
+    end
+
+    def move
+      delete
+      post_message = create
+      mission.update(
+        discord_post_uid: post_message.id,
+        discord_post_link: t('link', message_id: post_message.id, channel_id: channel)
+      )
     end
 
     def delete

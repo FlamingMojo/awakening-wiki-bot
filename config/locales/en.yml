@@ -26,6 +26,7 @@ en:
       approve_mission: "Approve"
       reject_mission: "Reject"
       admin_notification: "@here A new submission landed!"
+      link: "https://discord.com/channels/%{DISCORD_SERVER_ID}/%{channel_id}/%{message_id}"
   discord_bot:
     commands:
       admin:
