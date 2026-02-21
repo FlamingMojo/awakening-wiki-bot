@@ -1,0 +1,4 @@
+key: <%= ENV.fetch('SYMMETRIC_ENCRYPTION_KEY', '1234567890ABCDEF1234567890ABCDEF') %>
+iv: <%= ENV.fetch('SYMMETRIC_ENCRYPTION_IV', '1234567890ABCDEF') %>
+cipher_name: aes-256-cbc
+version: 1

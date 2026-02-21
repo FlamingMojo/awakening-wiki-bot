@@ -10,6 +10,7 @@ require 'i18n'
 require 'json'
 require 'mediawiki_api'
 require 'rotp'
+require 'symmetric_encryption/core'
 require 'uri'
 require 'yaml'
 
@@ -17,7 +18,9 @@ Dotenv.load
 
 I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
 I18n.default_locale = :en
-
+SymmetricEncryption.cipher = SymmetricEncryption::Cipher.new(
+  **YAML.load(ERB.new(IO.read('./config/symmetric-encryption.yml')).result, aliases: true).transform_keys(&:to_sym)
+)
 ActiveRecord::Base.establish_connection(
   YAML.load(ERB.new(IO.read('./db/config.yml')).result, aliases: true)['default_env']
 )

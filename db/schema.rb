@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_10_152108) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_20_191605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,42 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_10_152108) do
     t.index ["issuer_id"], name: "index_missions_on_issuer_id"
   end
 
+  create_table "reward_types", force: :cascade do |t|
+    t.integer "reward_key", default: 0, null: false
+    t.string "name", null: false
+    t.boolean "active", default: true
+    t.integer "threshold"
+    t.integer "threshold_type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rewards", force: :cascade do |t|
+    t.bigint "reward_type_id", null: false
+    t.bigint "user_reward_id"
+    t.text "encrypted_key", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reward_type_id"], name: "index_rewards_on_reward_type_id"
+    t.index ["user_reward_id"], name: "index_rewards_on_user_reward_id"
+  end
+
+  create_table "user_rewards", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.integer "issue_type", default: 0, null: false
+    t.bigint "discord_user_id", null: false
+    t.bigint "reward_id", null: false
+    t.bigint "issuer_id"
+    t.string "discord_uid", null: false
+    t.string "comment"
+    t.datetime "issued_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discord_user_id"], name: "index_user_rewards_on_discord_user_id"
+    t.index ["issuer_id"], name: "index_user_rewards_on_issuer_id"
+    t.index ["reward_id"], name: "index_user_rewards_on_reward_id"
+  end
+
   create_table "wiki_users", force: :cascade do |t|
     t.string "username"
     t.bigint "discord_user_id"
@@ -59,4 +95,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_10_152108) do
 
   add_foreign_key "missions", "discord_users", column: "assignee_id"
   add_foreign_key "missions", "discord_users", column: "issuer_id"
+  add_foreign_key "user_rewards", "discord_users", column: "issuer_id"
 end

@@ -100,6 +100,7 @@ en:
           abandon: 'Abandon your current mission'
           cancel: 'Cancel a mission'
           count: 'Show how many missions someone has completed (defaults to your own mission count)'
+          rewards: 'Claim and view your rewards earned by completing missions!'
           fields:
             id: 'ID of the mission to cancel'
         init:
@@ -153,10 +154,12 @@ en:
         approve:
           approved_mission: "Completed mission %{summary}!"
           celebration: "🎉<@%{user}> Has completed a mission - %{summary}! They have now completed **%{count}** missions! 🎉"
-          reward: "🎖 <@&1473396748478054420>! <@%{user}> HAS EARNED A REWARD FOR COMPLETING %{count} MISSIONS! 🎖️"
+          reward: "🎖<@%{user}> Has completed %{count} Missions and has earned a reward! <@&1473396748478054420>️"
           not_found: "Sorry, something went wrong, can't find that mission"
           not_submitted: "Sorry, that mission has not had a submission yet"
           not_assigned: "Sorry, nobody is on that mission"
+          reward_out_of_stock: "⚠️ OUT OF STOCK! <@%{user_id}> earned a %{reward} but we have none to give! ⚠️"
+          confirm: 'Approve'
         reject:
           rejected_mission: "Rejected mission %{summary}! Notified user"
           rejected_mission_no_feedback: "Rejected mission %{summary}! ⚠️ Unable to notify user! Please DM ⚠️"
@@ -205,3 +208,14 @@ en:
               not_you: "This button is not yours to push! 😠"
               not_found: "Sorry, something went wrong, can't find that mission"
               cancel_submission: "No problem! Thank you for uploading the image"
+        rewards:
+          no_rewards: "Sorry you haven't earned any rewards yet! See the missions board to get started!"
+          message: >
+            Congratulations! You have earned the following rewards:
+            * %{rewards}
+            Redeem them at https://account.duneawakening.com
+        reward:
+          not_found: "Reward not found or already approved"
+          approved: "🏅Issued <@%{user_id}> a key for %{reward} - `%{key}`"
+          broadcast: "🏅Congratulations! <@%{user_id}> earned %{reward}! Use `/rewards` to claim your key!"
+          already_claimed: 'That user already has that reward. Unclaiming'

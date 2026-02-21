@@ -23,6 +23,7 @@ module DiscordBot::Commands
         DiscordBot.slash_command(:missions, t('count')) do |cmd|
           cmd.user('target_user', 'Other discord user', required: false)
         end
+        DiscordBot.slash_command(:rewards, t('rewards'))
       end
 
       def register_handlers
@@ -36,10 +37,12 @@ module DiscordBot::Commands
         handle_button(/^mission:reject:/, 'DiscordBot::Commands::Missions::Reject')
         handle_button(/^mission:image:confirm:/, 'DiscordBot::Commands::Missions::Submit::UploadImage::Confirm')
         handle_button(/^mission:image:cancel:/, 'DiscordBot::Commands::Missions::Submit::UploadImage::Cancel')
+        handle_button(/^mission:reward:confirm:/, 'DiscordBot::Commands::Missions::Reward::Confirm')
 
         handle_command(:abandon_mission, 'DiscordBot::Commands::Missions::Abandon')
         handle_command(:cancel_mission, 'DiscordBot::Commands::Missions::Cancel')
         handle_command(:missions, 'DiscordBot::Commands::Missions::Count')
+        handle_command(:rewards, 'DiscordBot::Commands::Missions::Rewards')
       end
     end
   end
