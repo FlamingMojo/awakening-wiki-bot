@@ -23,6 +23,9 @@ module DiscordBot::Commands
         DiscordBot.slash_command(:missions, t('count')) do |cmd|
           cmd.user('target_user', 'Other discord user', required: false)
         end
+        DiscordBot.slash_command(:manual_reward, t('manually_reward')) do |cmd|
+          cmd.user('target_user', 'Discord user', required: true)
+        end
         DiscordBot.slash_command(:rewards, t('rewards'))
       end
 
@@ -43,6 +46,7 @@ module DiscordBot::Commands
         handle_command(:cancel_mission, 'DiscordBot::Commands::Missions::Cancel')
         handle_command(:missions, 'DiscordBot::Commands::Missions::Count')
         handle_command(:rewards, 'DiscordBot::Commands::Missions::Rewards')
+        handle_command(:manual_reward, 'DiscordBot::Commands::Missions::ManuallyReward')
       end
     end
   end

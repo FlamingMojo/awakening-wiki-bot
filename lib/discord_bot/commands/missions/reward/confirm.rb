@@ -13,7 +13,6 @@ module DiscordBot::Commands::Missions
       return already_claimed if user_already_rewarded?
 
       user_reward.award(discord_user)
-      ::Discordrb::API::Channel.delete_message(DiscordBot.bot.token, event.message.channel.id, event.message.id)
       DiscordBot.send_message(
         ENV.fetch('DISCORD_MISSIONS_NOTIFICATIONS_CHANNEL_ID'),
         t('broadcast', user_id:, reward:)
@@ -22,6 +21,7 @@ module DiscordBot::Commands::Missions
         ENV.fetch('DISCORD_HIGH_COUNCIL_CHANNEL_ID'),
         t('approved', user_id:, key:, reward:)
       )
+      delete_message
 
       t('approved', user_id:, key:, reward:)
     end
@@ -32,8 +32,13 @@ module DiscordBot::Commands::Missions
 
     private
 
+    def delete_message
+      ::Discordrb::API::Channel.delete_message(DiscordBot.bot.token, event.message.channel.id, event.message.id)
+    end
+
     def already_claimed
       user_reward.unclaim!
+      delete_message
       t('already_claimed')
     end
 

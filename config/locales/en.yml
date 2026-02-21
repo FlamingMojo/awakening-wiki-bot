@@ -101,6 +101,7 @@ en:
           cancel: 'Cancel a mission'
           count: 'Show how many missions someone has completed (defaults to your own mission count)'
           rewards: 'Claim and view your rewards earned by completing missions!'
+          manually_reward: 'Manually give a player an Atreides Battle Rifle'
           fields:
             id: 'ID of the mission to cancel'
         init:
@@ -219,3 +220,9 @@ en:
           approved: "🏅Issued <@%{user_id}> a key for %{reward} - `%{key}`"
           broadcast: "🏅Congratulations! <@%{user_id}> earned %{reward}! Use `/rewards` to claim your key!"
           already_claimed: 'That user already has that reward. Unclaiming'
+        manually_reward:
+          reward: "🎖<@%{user}> Has been manually awarded the %{reward} by <@%{admin}>. <@&1473396748478054420>️"
+          not_found: "Sorry, something went wrong, can't find that user"
+          reward_out_of_stock: "⚠️ OUT OF STOCK! <@%{user_id}> was issued a %{reward} but we have none to give! ⚠️"
+          confirm: 'Approve'
+          issued: 'Issued the user a reward! It needs to be approved before they can receive it'
