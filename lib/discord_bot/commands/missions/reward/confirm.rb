@@ -6,22 +6,24 @@ module DiscordBot::Commands::Missions
     include Translatable
     include ::DiscordBot::Util
 
-    with_locale_context 'discord_bot.commands.missions.reward.confirm'
+    with_locale_context 'discord_bot.commands.missions.reward'
 
     def content
       return t('not_found') unless user_reward
       return already_claimed if user_already_rewarded?
 
       user_reward.award(discord_user)
-
       ::Discordrb::API::Channel.delete_message(DiscordBot.bot.token, event.message.channel.id, event.message.id)
-
       DiscordBot.send_message(
         ENV.fetch('DISCORD_MISSIONS_NOTIFICATIONS_CHANNEL_ID'),
-        t('broadcast', user_id: rewarded_user.discord_uid, reward: user_reward.reward_type.name)
+        t('broadcast', user_id:, reward:)
+      )
+      DiscordBot.send_message(
+        ENV.fetch('DISCORD_HIGH_COUNCIL_CHANNEL_ID'),
+        t('approved', user_id:, key:, reward:)
       )
 
-      t('approved', user_id: rewarded_user.discord_uid, key: user_reward.redacted, reward: user_reward.reward_type.name)
+      t('approved', user_id:, key:, reward:)
     end
 
     def ephemeral
@@ -37,6 +39,18 @@ module DiscordBot::Commands::Missions
 
     def user_already_rewarded?
       rewarded_user.claimed_rewards.include?(user_reward.reward_key)
+    end
+
+    def key
+      @key ||= user_reward.redacted
+    end
+
+    def user_id
+      @user_id ||= rewarded_user.discord_uid
+    end
+
+    def reward
+      @reward ||= user_reward.reward_type.name
     end
 
     def rewarded_user
