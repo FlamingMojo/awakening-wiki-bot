@@ -17,6 +17,8 @@ class Mission < ActiveRecord::Base
 
   belongs_to :issuer, class_name: 'DiscordUser', required: true
   belongs_to :assignee, class_name: 'DiscordUser', optional: true
+  has_one :image_mission_rule, dependent: :destroy
+  has_one :image_rule, through: :image_mission_rule
 
   scope :in_progress, -> { where(status: %w[active accepted submitted]) }
 
@@ -28,6 +30,12 @@ class Mission < ActiveRecord::Base
     return :archive if completed?
 
     :admin
+  end
+
+  def rule=(rule_name)
+    return unless rule_name
+
+    self.rule = ImageRule.find_by(name: rule_name)
   end
 
   def accept(discord_user)

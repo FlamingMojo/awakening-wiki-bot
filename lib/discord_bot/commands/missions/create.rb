@@ -40,7 +40,7 @@ module DiscordBot::Commands::Missions
     end
 
     def modal_keys
-      %w[title description wiki_page map_link]
+      %w[title description wiki_page map_link rule]
     end
   end
 end

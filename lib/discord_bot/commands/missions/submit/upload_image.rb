@@ -25,6 +25,7 @@ module DiscordBot::Commands::Missions
       mission.update(wiki_page: t('link', image_name: uploaded_files.first.gsub(' ', '_')))
 
       DiscordBot.send_message(channel, t('prompt', summary: mission.summary), false, nil, nil, nil, nil, buttons)
+      true
     end
 
     private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_20_191605) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_24_080343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,27 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_20_191605) do
     t.string "username"
     t.string "global_username"
     t.string "display_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "image_mission_rules", force: :cascade do |t|
+    t.bigint "image_rule_id"
+    t.bigint "mission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_rule_id"], name: "index_image_mission_rules_on_image_rule_id"
+    t.index ["mission_id"], name: "index_image_mission_rules_on_mission_id"
+  end
+
+  create_table "image_rules", force: :cascade do |t|
+    t.string "name"
+    t.integer "min_width"
+    t.integer "min_height"
+    t.integer "max_width"
+    t.integer "max_height"
+    t.float "ratio"
+    t.string "format"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

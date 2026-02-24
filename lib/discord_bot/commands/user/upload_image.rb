@@ -18,12 +18,12 @@ module DiscordBot::Commands::User
       return "<@#{user.id}> Sorry, I don't know what you're asking!" unless message_text.start_with?(/upload/i)
       return "<@#{user.id}> You haven't attached any images!" unless attachments.any?
       return "<@#{user.id}> You need to tell me a title for these images!" unless title_base.length
+      return "<@#{user.id}> These files do not meet the image requirements, please check the mission." unless rules_met?
 
-      handle_mission if discord_user.current_mission&.image_upload?
-
+      upload_files_to_wiki
       "<@#{user.id}> Uploaded: #{uploaded_files.join(', ')} for you!"
-    # rescue
-    #   "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help!"
+    rescue
+      "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help!"
     end
 
     def uploaded_files
@@ -31,15 +31,20 @@ module DiscordBot::Commands::User
         filename_base = index.zero? ? title_base : "#{title_base} #{index}"
         discord_image = DiscordImage.new(attachment.url, filename_base)
         discord_image.generate_image_file!
-        WikiClient.upload_image(discord_image.filename, discord_image.local_filename, comment, true)
-        File.delete(discord_image.local_filename) if File.exist?(discord_image.local_filename)
 
-        discord_image.filename
+        discord_image
+      end
+    end
+
+    def upload_files_to_wiki
+      uploaded_files.each do |file|
+        WikiClient.upload_image(file.filename, file.local_filename, comment, true)
+        File.delete(file.local_filename) if File.exist?(file.local_filename)
       end
     end
 
     def comment
-      "Uploaded via Discord by #{user.global_name}"
+      "Uploaded via Discord by #{user.global_name || user.username}"
     end
 
     def title_base
@@ -54,14 +59,27 @@ module DiscordBot::Commands::User
       @discord_user ||= DiscordUser.from_discord(user)
     end
 
+    def rules_met?
+      return true unless current_mission&.image_upload?
+      return handle_mission unless current_mission.image_rule
+
+      uploaded_files.all? do |file|
+        current_mission.image_rule.match?(file)
+      end.tap { |all| handle_mission if all }
+    end
+
     def handle_mission
       ::DiscordBot::Commands::Missions::Submit::UploadImage.new(
         discord_user: discord_user, uploaded_files: uploaded_files, channel: event.channel
       ).handle
     end
 
+    def current_mission
+      @current_mission ||= discord_user.current_mission
+    end
+
     class DiscordImage
-      attr_reader :url, :filename_base
+      attr_reader :url, :filename_base, :width, :height, :format
       private :url, :filename_base
 
       def initialize(url, filename_base)
@@ -71,6 +89,8 @@ module DiscordBot::Commands::User
 
       def generate_image_file!
         File.open(local_filename, 'wb') { |fp| fp.write(image_response.body) }
+        @width, @height = *(FastImage.size(local_filename) || [0,0])
+        @format = FastImage.type(local_filename) || :unknown
       end
 
       def local_filename

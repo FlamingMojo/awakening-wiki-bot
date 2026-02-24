@@ -42,6 +42,7 @@ class Mission
       embed.add_field(name: t('field.wiki_page'), value: mission.wiki_page_md, inline: true) if mission.wiki_page?
       embed.add_field(name: t('field.map_link'), value: mission.map_link_md, inline: true) if mission.map_link?
       embed.add_field(name: t('field.language'), value: mission.language, inline: true) if mission.language?
+      embed.add_field(name: t('field.image_rule'), value: mission.image_rule.name, inline: true) if mission.image_rule
       embed.add_field(name: t('field.assignee'), value: assignee)
 
       embed
