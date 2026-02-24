@@ -53,7 +53,7 @@ class ImageRule
     def match_ratio
       return true unless rule.ratio
       return false if image_info.width == 0
-      configured_precision = rule.ratio.to_s.split('.').last.length
+      configured_precision = [rule.ratio.to_s.split('.').last.length, 5].max
 
       (image_info.height.to_f / image_info.width.to_f).round(configured_precision) == rule.ratio
     end
