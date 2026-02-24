@@ -22,7 +22,7 @@ module DiscordBot::Commands::Missions
     def handle
       return unless (mission && uploaded_files.any?)
       # Store a file URL first. If cancelled it can be removed later
-      mission.update(wiki_page: t('link', image_name: uploaded_files.first.gsub(' ', '_')))
+      mission.update(wiki_page: t('link', image_name: uploaded_files.first.filename.gsub(' ', '_')))
 
       DiscordBot.send_message(channel, t('prompt', summary: mission.summary), false, nil, nil, nil, nil, buttons)
       true

@@ -23,7 +23,7 @@ module DiscordBot::Commands::User
       upload_files_to_wiki
       "<@#{user.id}> Uploaded: #{uploaded_files.map(&:filename).join(', ')} for you!"
     rescue => e
-      "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{e.message}```"
+      "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{e.message.truncate(500)}```"
     end
 
     def uploaded_files
