@@ -30,12 +30,14 @@ module DiscordBot::Commands::Missions
                 required: false,
               }.merge(field_settings.fetch(field, {}))
             )
-            row.text_input(
-              style: :short, custom_id: 'rule', label: t('label.rule'),
-              placeholder: t('placeholder.rule'), required: false
-            ) if type.to_sym == :image_upload
           end
         end
+        modal.row do |row|
+          row.text_input(
+            style: :short, custom_id: 'rule', label: t('label.rule'),
+            placeholder: t('placeholder.rule'), required: false
+          )
+        end if type.to_sym == :image_upload
       end
     end
 
