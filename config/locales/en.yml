@@ -123,14 +123,14 @@ en:
             wiki_page: "Wiki Page"
             map_link: "Nearest Map Location"
             language: "Language Code"
-            rule: "Image Ruleset"
+            image_rule: "Image Ruleset"
           placeholder:
             title: "Title"
             description: "Mission Description"
             wiki_page: "%{WEBSITE_URL}/Some_Page"
             map_link: "%{WEBSITE_URL}/Interactive_Map?marker=MARKER_ID"
             language: "en"
-            rule: "e.g. menu"
+            image_rule: "e.g. menu"
           value:
             description:
               page_create: >
