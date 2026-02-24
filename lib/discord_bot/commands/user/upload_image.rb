@@ -21,7 +21,7 @@ module DiscordBot::Commands::User
       return "<@#{user.id}> These files do not meet the image requirements, please check the mission." unless rules_met?
 
       upload_files_to_wiki
-      "<@#{user.id}> Uploaded: #{uploaded_files.join(', ')} for you!"
+      "<@#{user.id}> Uploaded: #{uploaded_files.map(&:filename).join(', ')} for you!"
     rescue => e
       "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{e.message}```"
     end
