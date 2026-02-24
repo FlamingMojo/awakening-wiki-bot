@@ -11,6 +11,7 @@ en:
         wiki_page: "Page:"
         map_link: "Nearest Map Location:"
         language: "Language:"
+        image_rule: "Image Ruleset:"
     instructions:
       page_create: >
         Create or Edit the wiki page %{wiki_page_md}. This will be automatically detected by the system

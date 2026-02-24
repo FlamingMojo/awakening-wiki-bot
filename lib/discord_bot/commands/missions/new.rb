@@ -34,8 +34,8 @@ module DiscordBot::Commands::Missions
         end
         modal.row do |row|
           row.text_input(
-            style: :short, custom_id: 'rule', label: t('label.rule'),
-            placeholder: t('placeholder.rule'), required: false
+            style: :short, custom_id: 'rule', label: t('label.image_rule'),
+            placeholder: t('placeholder.image_rule'), required: false
           )
         end if type.to_sym == :image_upload
       end
