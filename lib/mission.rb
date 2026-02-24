@@ -35,7 +35,7 @@ class Mission < ActiveRecord::Base
   def rule=(rule_name)
     return unless rule_name
 
-    self.rule = ImageRule.find_by(name: rule_name)
+    image_mission_rule = ImageMissionRule.new(mission: self, image_rule: ImageRule.find_by(name: rule_name))
   end
 
   def accept(discord_user)
