@@ -41,7 +41,7 @@ class Mission < ActiveRecord::Base
   def issuer_username=(username)
     return unless username
 
-    issuer = DiscordUser.find_by(username: username)
+    self.issuer = DiscordUser.find_by(username: username)
   end
 
   def accept(discord_user)

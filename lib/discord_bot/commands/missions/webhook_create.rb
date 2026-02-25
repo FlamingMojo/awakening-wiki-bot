@@ -16,6 +16,7 @@ module DiscordBot::Commands::Missions
       return unless channel.id == ENV['DISCORD_MISSIONS_WEBHOOK_CHANNEL_ID'].to_i
 
       if mission.save
+        mission.sync_post!
         DiscordBot.send_message(
           ENV.fetch('DISCORD_MISSIONS_WEBHOOK_CHANNEL_ID'),
           t('success', summary: mission.summary)
