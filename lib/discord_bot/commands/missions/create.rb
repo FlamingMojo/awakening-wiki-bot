@@ -27,7 +27,7 @@ module DiscordBot::Commands::Missions
       @mission ||= Mission.create(
         type: type,
         issuer: issuer,
-        **modal_values.symbolize_keys.delete_if { |_, v| v.empty? }
+        **modal_values.symbolize_keys.delete_if { |_, v| v.nil? || v.empty? }
       )
     end
 
