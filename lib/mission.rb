@@ -38,6 +38,12 @@ class Mission < ActiveRecord::Base
     image_mission_rule = ImageMissionRule.new(mission: self, image_rule: ImageRule.find_by(name: rule_name))
   end
 
+  def issuer_username=(username)
+    return unless username
+
+    issuer = DiscordUser.find_by(username: username)
+  end
+
   def accept(discord_user)
     update(assignee: discord_user, status: 'accepted') && sync_post!
   end

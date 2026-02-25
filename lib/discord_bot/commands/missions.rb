@@ -32,6 +32,7 @@ module DiscordBot::Commands
       def register_handlers
         handle_message('DiscordBot::Commands::Missions::Submit::CreatePage')
         handle_message('DiscordBot::Commands::Missions::Submit::UpdatePage')
+        handle_message('DiscordBot::Commands::Missions::WebhookCreate')
         handle_command(:post_mission, 'DiscordBot::Commands::Missions::Init')
         handle_select_menu('mission:new', 'DiscordBot::Commands::Missions::New')
         handle_modal(/^mission:create:/, 'DiscordBot::Commands::Missions::Create')

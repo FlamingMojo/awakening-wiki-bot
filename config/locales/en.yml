@@ -229,3 +229,7 @@ en:
           reward_out_of_stock: "⚠️ OUT OF STOCK! <@%{user_id}> was issued a %{reward} but we have none to give! ⚠️"
           confirm: 'Approve'
           issued: 'Issued the user a reward! It needs to be approved before they can receive it'
+        webhook_create:
+          success: "✅Successfully created `%{summary}`."
+          failure: "⚠️Unable to create mission. Errors: ```%{errors}```"
+          error: "❌There was an error in processing the message. Error: ```%{errors}```"
