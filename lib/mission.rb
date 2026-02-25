@@ -22,6 +22,8 @@ class Mission < ActiveRecord::Base
 
   scope :in_progress, -> { where(status: %w[active accepted submitted]) }
 
+  validates :title, presence: true
+  validates :description, presence: true
   validates :wiki_page, format: { with: /\A#{ENV['WEBSITE_URL']}\//i, allow_blank: true }
   validates :map_link, format: { with: /\A#{ENV['WEBSITE_URL']}\//i, allow_blank: true }
 
