@@ -104,6 +104,7 @@ en:
             - %{errors}
             Please correct and re-upload with the same command
           error: "<@%{user_id}> Sorry, something went wrong. Ask Mojo for help! Error: ```%{error}```"
+          aborted_error: "<@%{user_id}> Sorry, something went wrong. This is likely due to a duplicate image being uploaded."
           comment: "Uploaded via Discord by %{username}"
           success: >
             <@%{user_id}> Uploaded:
