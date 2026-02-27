@@ -103,7 +103,7 @@ en:
             <@#{user.id}> Sorry, these files do not meet the image requirements:
             - %{errors}
             Please correct and re-upload with the same command
-          error: "<@%{user_id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{error}```"
+          error: "<@%{user_id}> Sorry, something went wrong. Ask Mojo for help! Error: ```%{error}```"
           comment: "Uploaded via Discord by %{username}"
           success: >
             <@%{user_id}> Uploaded:
