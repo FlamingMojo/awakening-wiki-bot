@@ -32,9 +32,7 @@ class ImageRule
       return true unless rule.min_width
 
       (image_info.width >= rule.min_width).tap do |match|
-        errors << t(
-          'min_width', file: image_info.filename, rule_value: rule.min_width, image_value: image_info.width
-        ) unless match
+        errors << t('min_width', rule_value: rule.min_width, image_value: image_info.width) unless match
       end
     end
 
@@ -42,9 +40,7 @@ class ImageRule
       return true unless rule.max_width
 
       (image_info.width <= rule.max_width).tap do |match|
-        errors << t(
-          'max_width', file: image_info.filename, rule_value: rule.max_width, image_value: image_info.width
-        ) unless match
+        errors << t('max_width', rule_value: rule.max_width, image_value: image_info.width) unless match
       end
     end
 
@@ -52,9 +48,7 @@ class ImageRule
       return true unless rule.min_height
 
       (image_info.height >= rule.min_height).tap do |match|
-        errors << t(
-          'min_height', file: image_info.filename, rule_value: rule.min_height, image_value: image_info.height
-        ) unless match
+        errors << t('min_height', rule_value: rule.min_height, image_value: image_info.height) unless match
       end
     end
 
@@ -62,9 +56,7 @@ class ImageRule
       return true unless rule.max_height
 
       (image_info.height <= rule.max_height).tap do |match|
-        errors << t(
-          'max_height', file: image_info.filename, rule_value: rule.max_height, image_value: image_info.height
-        ) unless match
+        errors << t('max_height', rule_value: rule.max_height, image_value: image_info.height) unless match
       end
     end
 
@@ -72,9 +64,7 @@ class ImageRule
       return true unless rule.format
 
       (image_info.format.to_s == rule.format.to_s).tap do |match|
-        errors << t(
-          'format', file: image_info.filename, rule_value: rule.format, image_value: image_info.format
-        ) unless match
+        errors << t('format', rule_value: rule.format, image_value: image_info.format) unless match
       end
     end
 
@@ -85,9 +75,7 @@ class ImageRule
 
       image_ratio = (image_info.height.to_f / image_info.width.to_f).round(configured_precision)
       (image_ratio == rule.ratio).tap do |match|
-        errors << t(
-          'ratio', file: image_info.filename, rule_value: rule.ratio, image_value: image_ratio
-        ) unless match
+        errors << t('ratio', rule_value: rule.ratio, image_value: image_ratio) unless match
       end
     end
   end
