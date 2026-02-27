@@ -95,6 +95,27 @@ en:
         lookup:
           not_found: "Sorry, that user has not verified any wiki accounts"
           found: "<@%{user_id}> has verified ownership of the following wiki accounts:\n %{wiki_usernames}"
+        upload_image:
+          unknown_command: "<@%{user_id}> Sorry, I don't know what you're asking!"
+          no_attachments: "<@%{user.id}> You haven't attached any images!"
+          no_title: "<@%{user.id}> You need to tell me a title for these images!"
+          rules_not_met: >
+            <@#{user.id}> Sorry, these files do not meet the image requirements:
+            - %{errors}
+            Please correct and re-upload with the same command
+          error: "<@%{user_id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{error}```"
+          comment: "Uploaded via Discord by %{username}"
+          success: >
+            <@%{user_id}> Uploaded:
+            - %{files}
+            for you!
+          rules:
+            min_width: "[`%{file}`] Width is too small. Minimum width: %{rule_value}px. Image width: %{image_value}px"
+            max_width: "[`%{file}`] Width is too large. Maximum width: %{rule_value}px. Image width: %{image_value}px"
+            min_height: "[`%{file}`] Height is too small. Minimum height: %{rule_value}px. Image height: %{image_value}px"
+            max_height: "[`%{file}`] Height is too large. Maximum height: %{rule_value}px. Image height: %{image_value}px"
+            format: "[`%{file}`] Incorrect image format. Required format: %{rule_value}. Format found: %{image_value}"
+            ratio: "[`%{file}`] Incorrect image W:H ratio. Required ratio: 1:%{rule_value}. Ratio found: 1:%{image_value}"
       missions:
         tooltip:
           post: 'Post a new mission for the community'
@@ -216,7 +237,9 @@ en:
           no_rewards: "Sorry you haven't earned any rewards yet! See the missions board to get started!"
           message: >
             Congratulations! You have earned the following rewards:
-            * %{rewards}
+            
+            - %{rewards}
+            
             Redeem them at https://account.duneawakening.com
         reward:
           not_found: "Reward not found or already approved"

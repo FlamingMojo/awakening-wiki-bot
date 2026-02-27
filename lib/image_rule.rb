@@ -6,7 +6,7 @@ class ImageRule < ActiveRecord::Base
   has_many :image_rule_missions, dependent: :delete_all
   has_many :missions, through: :image_rule_missions
 
-  def match?(image_info)
-    Matcher.new(rule: self, image_info: image_info).match?
+  def matcher(image_info)
+    Matcher.new(rule: self, image_info: image_info)
   end
 end

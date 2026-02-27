@@ -4,6 +4,9 @@ module DiscordBot::Commands::User
   class UploadImage
     extend Forwardable
     include ::DiscordBot::Util
+    include Translatable
+
+    with_locale_context 'discord_bot.commands.user.upload_image'
 
     def_delegators :message, :attachments
     def_delegators :event, :message, :text
@@ -15,15 +18,15 @@ module DiscordBot::Commands::User
     private
 
     def content
-      return "<@#{user.id}> Sorry, I don't know what you're asking!" unless message_text.start_with?(/upload/i)
-      return "<@#{user.id}> You haven't attached any images!" unless attachments.any?
-      return "<@#{user.id}> You need to tell me a title for these images!" unless title_base.length
-      return "<@#{user.id}> These files do not meet the image requirements, please check the mission." unless rules_met?
+      return t('unknown_command', user_id: user.id) unless message_text.start_with?(/upload/i)
+      return t('no_attachments', user_id: user.id) unless attachments.any?
+      return t('no_title', user_id: user.id) unless title_base.length
+      return t('rules_not_met', user_id: user.id, errors: rule_errors.flatten.join("\n- ")) unless rules_met?
 
       upload_files_to_wiki
-      "<@#{user.id}> Uploaded: #{uploaded_files.map(&:filename).join(', ')} for you!"
+      t('success', user_id: user.id, files: uploaded_files.map(&:filename).join("\n- "))
     rescue => e
-      "<@#{user.id}> Sorry, something went wrong. Ask Mojo for help! Error: ```#{e.message.truncate(500)}```"
+      t('error', user_id: user.id, error: e.message.truncate(500))
     end
 
     def uploaded_files
@@ -44,7 +47,7 @@ module DiscordBot::Commands::User
     end
 
     def comment
-      "Uploaded via Discord by #{user.global_name || user.username}"
+      t('comment', username: user.global_name || user.username)
     end
 
     def title_base
@@ -64,8 +67,13 @@ module DiscordBot::Commands::User
       return handle_mission unless current_mission.image_rule
 
       uploaded_files.all? do |file|
-        current_mission.image_rule.match?(file)
+        matcher = current_mission.image_rule.matcher(file)
+        matcher.match?.tap { rule_errors << matcher.errors }
       end.tap { |all| handle_mission if all }
+    end
+
+    def rule_errors
+      @rule_errors ||= []
     end
 
     def handle_mission

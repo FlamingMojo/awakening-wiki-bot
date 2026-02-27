@@ -10,7 +10,7 @@ module DiscordBot::Commands::Missions
     def content
       return t('no_rewards') unless user_rewards.any?
 
-      t('message', rewards: user_rewards.map(&:to_message).join("\n* "))
+      t('message', rewards: user_rewards.map(&:to_message).join("\n- "))
     rescue StandardError => e
       "Something went wrong! Ask Mojo! Error: ```#{e.message}```"
     end
